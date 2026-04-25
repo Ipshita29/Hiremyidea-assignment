@@ -1,11 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Svg, { Path, Circle, Line } from "react-native-svg";
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function StabilityCard() {
+
+  const GRAPH_LEFT = 40;
+  const GRAPH_WIDTH = 250;
+  const MONTHS = 4;
+  const marchIndex = 2; 
+  const step = GRAPH_WIDTH / MONTHS;
+  const marchX = GRAPH_LEFT + step * marchIndex + step / 2;
+
   return (
-    <SafeAreaView>
     <View style={styles.card}>
       <Text style={styles.desc}>
         Based on your recent logs and symptom patterns.
@@ -13,42 +19,63 @@ export default function StabilityCard() {
       <Text style={styles.label}>Stability Score</Text>
       <Text style={styles.score}>78%</Text>
       <View style={styles.graph}>
-        <Text style={[styles.y, { top: 10 }]}>32d</Text>
-        <Text style={[styles.y, { top: 45 }]}>28d</Text>
-        <Text style={[styles.y, { top: 80 }]}>24d</Text>
+        <Text style={[styles.y, { top: 12 }]}>32d</Text>
+        <Text style={[styles.y, { top: 55 }]}>28d</Text>
+        <Text style={[styles.y, { top: 98 }]}>24d</Text>
 
-        <Svg width={300} height={120}>
+        <Svg width={320} height={140}>
           <Path
-            d="M40 90 Q120 70 280 30 L280 100 L40 100 Z"
-            fill="#dcd2ff"
-            opacity="0.5"
+            d="
+              M40 118
+              L100 110
+              C190 90, 240 70, 290 35
+              L290 120
+              L40 120
+              Z
+            "
+            fill="#ECE7FF"
           />
           <Path
-            d="M40 90 Q120 80 280 60 L280 100 L40 100 Z"
-            fill="#b8a9f8"
-            opacity="0.6"
+            d="
+              M40 118
+              L105 112
+              C180 108, 240 85, 290 70
+              L290 120
+              L40 120
+              Z
+            "
+            fill="#D2C7FF"
           />
           <Path
-            d="M40 90 Q120 85 280 75 L280 100 L40 100 Z"
-            fill="#9f8df2"
-            opacity="0.7"
+            d="
+              M40 118
+              L100 115
+              C180 109, 240 100, 290 90
+              L290 120
+              L40 120
+              Z
+            "
+            fill="#B3A3F5"
           />
           <Line
-            x1="170"
-            y1="35"
-            x2="170"
-            y2="100"
+            x1={marchX}
+            y1="45"
+            x2={marchX}
+            y2="120"
             stroke="#6f9c8d"
             strokeWidth="2"
             strokeDasharray="5,5"
           />
-          <Circle cx="170" cy="30" r="6" fill="#6f9c8d" />
+          <Circle cx={marchX} cy="40" r="7" fill="#6f9c8d" />
 
         </Svg>
-        <View style={styles.tooltip}>
-          <Text style={styles.tooltipText}>
-            Stability{"\n"}Improving
-          </Text>
+        <View style={[styles.tooltipWrap, { left: marchX - 36 }]}>
+          <View style={styles.tooltip}>
+            <Text style={styles.tooltipText}>
+              Stability{"\n"}Improving
+            </Text>
+          </View>
+          <View style={styles.pointer} />
         </View>
         <View style={styles.monthRow}>
           <Text style={styles.month}>Jan</Text>
@@ -59,19 +86,20 @@ export default function StabilityCard() {
 
       </View>
     </View>
-    </SafeAreaView>
   );
 }
+
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#fff",
     padding: 18,
-    borderRadius: 18,
+    borderRadius: 20,
   },
 
   desc: {
     color: "#777",
-    marginBottom: 10,
+    fontSize: 13,
+    marginBottom: 12,
   },
 
   label: {
@@ -81,51 +109,68 @@ const styles = StyleSheet.create({
   score: {
     fontSize: 34,
     fontWeight: "700",
-    marginBottom: 20,
+    marginBottom: 18,
   },
 
   graph: {
-    height: 130,
+    height: 150,
     position: "relative",
   },
 
   y: {
     position: "absolute",
     left: 0,
-    color: "#999",
     fontSize: 12,
+    color: "#999",
+  },
+
+  tooltipWrap: {
+    position: "absolute",
+    top: -15,
+    alignItems: "center",
   },
 
   tooltip: {
-    position: "absolute",
-    left: 140,
-    top: -5,
     backgroundColor: "#000",
-    padding: 6,
-    borderRadius: 8,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 10,
   },
 
   tooltipText: {
     color: "#fff",
-    fontSize: 10,
+    fontSize: 11,
     textAlign: "center",
+  },
+
+  pointer: {
+    width: 0,
+    height: 0,
+    borderLeftWidth: 6,
+    borderRightWidth: 6,
+    borderTopWidth: 8,
+    borderLeftColor: "transparent",
+    borderRightColor: "transparent",
+    borderTopColor: "#000",
   },
 
   monthRow: {
     position: "absolute",
-    bottom: -20,
+    bottom: -2,
     left: 40,
-    width: 240,
+    width: 250,
     flexDirection: "row",
     justifyContent: "space-between",
   },
 
   month: {
     color: "#aaa",
+    fontSize: 13,
   },
 
   active: {
     color: "#000",
     fontWeight: "600",
+    fontSize: 13,
   },
 });
