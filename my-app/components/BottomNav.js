@@ -1,49 +1,55 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { Feather } from "@expo/vector-icons"; 
 
+const { width } = Dimensions.get("window");
 export default function BottomNav() {
   return (
     <View style={styles.wrapper}>
       <View style={styles.nav}>
         <View style={styles.item}>
-          <View style={styles.homeIcon} />
+          <Feather name="home" size={20} color="#999" />
           <Text style={styles.inactive}>Home</Text>
         </View>
+
         <View style={styles.item}>
-          <View style={styles.clockIcon} />
+          <Feather name="clock" size={20} color="#999" />
           <Text style={styles.inactive}>Track</Text>
         </View>
+
         <View style={styles.item}>
-          <View style={styles.chartIcon} />
+          <Feather name="bar-chart-2" size={20} color="#000" />
           <Text style={styles.active}>Insights</Text>
         </View>
       </View>
       <View style={styles.plus}>
-        <View style={styles.plusLineH} />
-        <View style={styles.plusLineV} />
+        <View style={styles.plusH} />
+        <View style={styles.plusV} />
       </View>
 
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   wrapper: {
     position: "absolute",
-    bottom: 25, 
+    bottom: 25,
     left: 0,
     right: 0,
-    alignItems: "center",
+    height: 80,
   },
 
   nav: {
+    position: "absolute",
+    left: width * 0.05,
+    width: width * 0.73,
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "85%",
-    backgroundColor: "#f2f2f2",
-    paddingVertical: 16,
+    backgroundColor: "#f6f4f4",
+    paddingVertical: 14,
     paddingHorizontal: 28,
     borderRadius: 40,
-
     shadowColor: "#000",
     shadowOpacity: 0.08,
     shadowRadius: 12,
@@ -67,57 +73,36 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontWeight: "600",
   },
-  
-  homeIcon: {
-    width: 18,
-    height: 18,
-    backgroundColor: "#bbb",
-    borderRadius: 4,
-  },
 
-  clockIcon: {
-    width: 18,
-    height: 18,
-    borderRadius: 9,
-    borderWidth: 2,
-    borderColor: "#bbb",
-  },
-
-  chartIcon: {
-    width: 18,
-    height: 18,
-    backgroundColor: "#000",
-    borderRadius: 3,
-  },
   plus: {
     position: "absolute",
-    right: 30,
-    bottom: 5, 
-    width: 55,
-    height: 55,
-    borderRadius: 30,
+    right: 18,
+    bottom: 16,
+    width: 62,
+    height: 62,
+    borderRadius: 31,
     backgroundColor: "#f2f2f2",
     alignItems: "center",
     justifyContent: "center",
 
     shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 8,
+    shadowOpacity: 0.15,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 10,
   },
 
-  plusLineH: {
+  plusH: {
     position: "absolute",
-    width: 20,
+    width: 22,
     height: 2,
-    backgroundColor: "#888",
+    backgroundColor: "#777",
   },
 
-  plusLineV: {
+  plusV: {
     position: "absolute",
     width: 2,
-    height: 20,
-    backgroundColor: "#888",
+    height: 22,
+    backgroundColor: "#777",
   },
 });
