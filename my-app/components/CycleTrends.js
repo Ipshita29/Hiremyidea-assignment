@@ -13,7 +13,6 @@ const data = [
 export default function CycleTrends() {
   return (
     <View style={s.card}>
-      <Text style={s.title}>Cycle Trends</Text>
       <View style={s.graph}>
         {/* mimikcking dashed lines on graph */}
         <View style={[s.line, { top: 30 }]} />
@@ -43,25 +42,24 @@ export default function CycleTrends() {
 }
 const s = StyleSheet.create({
   card: {
-    backgroundColor: "#f7f7f9",
-    padding: 18,
+    backgroundColor: "#fff", 
+    padding: 16,
+    borderRadius: 18,
     marginTop: 20,
-  },
-
-  title: {
-    fontSize: 20,
-    fontWeight: "600",
-    marginBottom: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 4,
   },
 
   graph: {
-    backgroundColor: "#ffffff",
-    borderRadius: 20,
     height: 170,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
     position: "relative",
+    paddingHorizontal: 4, 
   },
 
   line: {
@@ -70,7 +68,7 @@ const s = StyleSheet.create({
     right: 20,
     borderTopWidth: 1,
     borderStyle: "dashed",
-    borderColor: "#ddd",
+    borderColor: "#e5e5e5", 
   },
 
   col: {
@@ -82,6 +80,7 @@ const s = StyleSheet.create({
     fontSize: 12,
     fontWeight: "600",
     marginBottom: 6,
+    color: "#333",
   },
 
   bar: {
@@ -108,7 +107,7 @@ const s = StyleSheet.create({
     left: 0,
     right: 0,
     height: 26,
-    backgroundColor: "#6f9c8d",
+    backgroundColor: "#7f9c91", 
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
@@ -119,7 +118,7 @@ const s = StyleSheet.create({
     left: 0,
     right: 0,
     height: 24,
-    backgroundColor: "#e58b8b",
+    backgroundColor: "#d89a9a",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
@@ -148,7 +147,7 @@ const s = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
-    backgroundColor: "#eee",
+    backgroundColor: "#f0f0f0",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -160,7 +159,7 @@ const s = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
-    backgroundColor: "#eee",
+    backgroundColor: "#f0f0f0",
     alignItems: "center",
     justifyContent: "center",
   },
