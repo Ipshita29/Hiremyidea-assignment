@@ -22,7 +22,6 @@ export default function LifestyleHeatmap() {
     ];
   return (
     <View style={styles.card}>
-      <Text style={styles.heading}>Lifestyle Impact</Text>
       <View style={styles.box}>
         <View style={styles.topRow}>
           <Text style={styles.title}>Correlation Strength</Text>
@@ -85,11 +84,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 14,
-  },
-
-  title: {
-    fontSize: 14,
-    fontWeight: "500",
   },
 
   dropdown: {

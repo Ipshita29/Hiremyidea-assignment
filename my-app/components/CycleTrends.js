@@ -15,6 +15,7 @@ export default function CycleTrends() {
   const maxHeight = 120;
 
   return (
+    <View style={s.card}> 
 
       <View style={s.graph}>
         
@@ -32,12 +33,12 @@ export default function CycleTrends() {
               <View style={[s.bar, { height }, d.active && s.active]}>
                 <View style={s.base} />
 
-                {/* GREEN - fixed middle */}
+                {/* GREEN - middle */}
                 <View style={s.green}>
                   <Text style={s.icon}>⚙️</Text>
                 </View>
 
-                {/* PINK - fixed bottom */}
+                {/* PINK - bottom */}
                 <View style={s.pink}>
                   <Text style={s.icon}>💧</Text>
                 </View>
@@ -60,15 +61,18 @@ export default function CycleTrends() {
         </View>
 
       </View>
+    </View>
   );
 }
 
 const s = StyleSheet.create({
+  /* ✅ CARD SAME AS OTHER COMPONENTS */
   card: {
     backgroundColor: "#fff",
     padding: 16,
     borderRadius: 18,
-    marginTop: 20,
+    marginBottom: 14, // 🔥 better than marginTop for stacking
+
     shadowColor: "#000",
     shadowOpacity: 0.05,
     shadowRadius: 10,
@@ -129,7 +133,7 @@ const s = StyleSheet.create({
     left: 0,
     right: 0,
     height: 26,
-    bottom: "40%",  
+    bottom: "40%",
     backgroundColor: "#6f8f83",
     borderRadius: 10,
     alignItems: "center",
@@ -141,7 +145,7 @@ const s = StyleSheet.create({
     left: 0,
     right: 0,
     height: 24,
-    bottom: 6,    
+    bottom: 6,
     backgroundColor: "#e08b8b",
     borderRadius: 10,
     alignItems: "center",

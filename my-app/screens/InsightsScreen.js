@@ -34,37 +34,27 @@ export default function InsightsScreen() {
       >
 
         <Text style={styles.sectionTitle}>Stability Summary</Text>
-        <View style={[styles.card, styles.stabilityCard]}>
+        <View style={styles.stabilityCard}>
           <StabilityCard />
         </View>
 
         <Text style={styles.sectionTitle}>Cycle Trends</Text>
-        <View style={styles.card}>
           <CycleTrends />
-        </View>
+
 
         <Text style={styles.sectionTitle}>Body & Metabolic Trends</Text>
-        <View style={styles.card}>
           <BodyTrends />
-        </View>
 
         <Text style={styles.sectionTitle}>Body Signals</Text>
-        <View style={styles.card}>
-          <Text style={styles.innerTitle}>Symptom Trends</Text>
-          <Text style={styles.sub}>Compared to last cycle</Text>
           <SymptomsChart />
-        </View>
+
 
         <Text style={styles.sectionTitle}>Lifestyle Impact</Text>
-        <View style={styles.card}>
           <LifestyleHeatmap />
-        </View>
 
-        {/* space for bottom nav */}
         <View style={{ height: 100 }} />
       </ScrollView>
 
-      {/* bottom safe area */}
       <SafeAreaView edges={["bottom"]}>
         <BottomNav />
       </SafeAreaView>
@@ -81,17 +71,16 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: 16,
     paddingTop: 6,
-    paddingBottom: 20, // scroll safe
+    paddingBottom: 20, 
   },
 
-  /* HEADER */
   headerRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 16,
     paddingVertical: 10,
-    marginTop: 4, // fixes notch overlap
+    marginTop: 4,
   },
 
   header: {
@@ -100,7 +89,6 @@ const styles = StyleSheet.create({
     color: "#111",
   },
 
-  /* 2x2 DOT GRID */
   dotGrid: {
     width: 22,
     height: 22,
@@ -115,7 +103,6 @@ const styles = StyleSheet.create({
     margin: 1,
   },
 
-  /* SECTION TITLES (outside cards) */
   sectionTitle: {
     fontSize: 16,
     fontWeight: "600",
@@ -124,26 +111,10 @@ const styles = StyleSheet.create({
     color: "#111",
   },
 
-  /* CARDS */
-  card: {
-    backgroundColor: "#fff",
-    borderRadius: 20,
-    padding: 16,
-    marginBottom: 14,
-
-    shadowColor: "#000",
-    shadowOpacity: 0.05,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 5 },
-    elevation: 4,
-  },
-
-  /* SPECIAL STABILITY CARD */
   stabilityCard: {
-    backgroundColor: "#f7f8fb", // slight tint like screenshot
+    backgroundColor: "#f7f8fb",
   },
 
-  /* INNER TEXT */
   innerTitle: {
     fontSize: 14,
     fontWeight: "600",
