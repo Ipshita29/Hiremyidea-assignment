@@ -2,6 +2,24 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 export default function LifestyleHeatmap() {
+    const data = [
+    {
+        name: "Sleep",
+        colors: ["#c9c3e6", "#bdb5df", "#b0a7d8", "#a49bd1", "#9a92cc"],
+    },
+    {
+        name: "Hydrate",
+        colors: ["#e9a7a7", "#e39b9b", "#dd8f8f"],
+    },
+    {
+        name: "Caffeine",
+        colors: ["#7f9c91", "#738f85", "#6a847a", "#617a71"],
+    },
+    {
+        name: "Exercise",
+        colors: ["#e3b3b3", "#dbabab", "#d3a3a3", "#dd8f8f"],
+    },
+    ];
   return (
     <View style={styles.card}>
       <Text style={styles.heading}>Lifestyle Impact</Text>
@@ -38,24 +56,7 @@ export default function LifestyleHeatmap() {
     </View>
   );
 }
-const data = [
-  {
-    name: "Sleep",
-    colors: ["#c9c3e6", "#bdb5df", "#b0a7d8", "#a49bd1", "#9a92cc"],
-  },
-  {
-    name: "Hydrate",
-    colors: ["#e9a7a7", "#e39b9b", "#dd8f8f"],
-  },
-  {
-    name: "Caffeine",
-    colors: ["#7f9c91", "#738f85", "#6a847a", "#617a71"],
-  },
-  {
-    name: "Exercise",
-    colors: ["#e3b3b3", "#dbabab", "#d3a3a3", "#dd8f8f"],
-  },
-];
+
 const styles = StyleSheet.create({
   card: {
     marginTop: 20,

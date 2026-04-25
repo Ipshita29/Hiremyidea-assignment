@@ -2,47 +2,70 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 const data = [
-  { m: "Jan", v: 28, g: 45, p: 10 },
-  { m: "Feb", v: 30, g: 30, p: 20 },
-  { m: "Mar", v: 28, g: 40, p: 15 },
-  { m: "Apr", v: 32, g: 25, p: 25 },
-  { m: "May", v: 28, g: 38, p: 18, active: true },
-  { m: "Jun", v: 28, g: 50, p: 12 },
+  { m: "Jan", v: 28 },
+  { m: "Feb", v: 30 },
+  { m: "Mar", v: 28 },
+  { m: "Apr", v: 32 },
+  { m: "May", v: 28, active: true },
+  { m: "Jun", v: 28 },
 ];
 
 export default function CycleTrends() {
+  const maxValue = 34;
+  const maxHeight = 120;
+
   return (
-    <View style={s.card}>
+
       <View style={s.graph}>
-        {/* mimikcking dashed lines on graph */}
+        
+        {/* dashed lines */}
         <View style={[s.line, { top: 30 }]} />
         <View style={[s.line, { top: 75 }]} />
-        {data.map((d, i) => (
-          <View key={i} style={s.col}>
-            <Text style={s.val}>{d.v}</Text>
-            <View style={[s.bar, d.active && s.active]}>
-              <View style={s.base} />
-              <View style={[s.green, { top: d.g }]}>
-                <Text style={s.icon}>⚙</Text>
+
+        {data.map((d, i) => {
+          const height = (d.v / maxValue) * maxHeight;
+
+          return (
+            <View key={i} style={s.col}>
+              <Text style={s.val}>{d.v}</Text>
+
+              <View style={[s.bar, { height }, d.active && s.active]}>
+                <View style={s.base} />
+
+                {/* GREEN - fixed middle */}
+                <View style={s.green}>
+                  <Text style={s.icon}>⚙️</Text>
+                </View>
+
+                {/* PINK - fixed bottom */}
+                <View style={s.pink}>
+                  <Text style={s.icon}>💧</Text>
+                </View>
               </View>
-              <View style={[s.pink, { bottom: d.p }]}>
-                <Text style={s.icon}>💧</Text>
-              </View>
+
+              <Text style={[s.month, d.active && s.activeText]}>
+                {d.m}
+              </Text>
             </View>
-            <Text style={[s.month, d.active && s.activeText]}>
-              {d.m}
-            </Text>
-          </View>
-        ))}
-        <View style={s.leftBtn}><Text>‹</Text></View>
-        <View style={s.rightBtn}><Text>›</Text></View>
+          );
+        })}
+
+        {/* arrows */}
+        <View style={s.leftBtn}>
+          <Text>‹</Text>
+        </View>
+
+        <View style={s.rightBtn}>
+          <Text>›</Text>
+        </View>
+
       </View>
-    </View>
   );
 }
+
 const s = StyleSheet.create({
   card: {
-    backgroundColor: "#fff", 
+    backgroundColor: "#fff",
     padding: 16,
     borderRadius: 18,
     marginTop: 20,
@@ -59,7 +82,7 @@ const s = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-end",
     position: "relative",
-    paddingHorizontal: 4, 
+    paddingHorizontal: 4,
   },
 
   line: {
@@ -68,7 +91,7 @@ const s = StyleSheet.create({
     right: 20,
     borderTopWidth: 1,
     borderStyle: "dashed",
-    borderColor: "#e5e5e5", 
+    borderColor: "#e5e5e5",
   },
 
   col: {
@@ -85,11 +108,15 @@ const s = StyleSheet.create({
 
   bar: {
     width: 18,
-    height: 110,
     borderRadius: 12,
     overflow: "hidden",
     position: "relative",
     backgroundColor: "#c7bafc",
+  },
+
+  base: {
+    flex: 1,
+    backgroundColor: "#a99cf5",
   },
 
   active: {
@@ -97,17 +124,13 @@ const s = StyleSheet.create({
     borderColor: "#7B61FF",
   },
 
-  base: {
-    flex: 1,
-    backgroundColor: "#b8a9f8",
-  },
-
   green: {
     position: "absolute",
     left: 0,
     right: 0,
     height: 26,
-    backgroundColor: "#7f9c91", 
+    bottom: "40%",  
+    backgroundColor: "#6f8f83",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
@@ -118,7 +141,8 @@ const s = StyleSheet.create({
     left: 0,
     right: 0,
     height: 24,
-    backgroundColor: "#d89a9a",
+    bottom: 6,    
+    backgroundColor: "#e08b8b",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
