@@ -61,9 +61,7 @@ export default function BodyTrends() {
       ],
     },
   };
-
   const current = data[tab];
-
   return (
     <View style={styles.card}>
       <View style={styles.row}>
@@ -71,7 +69,6 @@ export default function BodyTrends() {
           <Text style={styles.title}>Your weight</Text>
           <Text style={styles.sub}>in kg</Text>
         </View>
-
         <View style={styles.toggle}>
           {["Monthly", "Weekly"].map((t) => (
             <TouchableOpacity
@@ -86,16 +83,13 @@ export default function BodyTrends() {
           ))}
         </View>
       </View>
-
       <View style={styles.graph}>
         <View style={[styles.line, { top: 15 }]} />
         <View style={[styles.line, { top: 60 }]} />
         <View style={[styles.line, { top: 100 }]} />
-
         <Text style={[styles.y, { top: 10 }]}>75</Text>
         <Text style={[styles.y, { top: 55 }]}>50</Text>
         <Text style={[styles.y, { top: 95 }]}>25</Text>
-
         <Svg width={320} height={140}>
           <Defs>
             <LinearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">

@@ -1,32 +1,47 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
-import { Feather } from "@expo/vector-icons"; 
-
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Pressable,
+} from "react-native";
+import { Feather } from "@expo/vector-icons";
 const { width } = Dimensions.get("window");
-export default function BottomNav() {
+
+export default function BottomNav({ state, navigation }) {
+  if (!state) return null;
   return (
     <View style={styles.wrapper}>
       <View style={styles.nav}>
-        <View style={styles.item}>
-          <Feather name="home" size={20} color="#6a6767" />
-          <Text style={styles.inactive}>Home</Text>
-        </View>
-
-        <View style={styles.item}>
-          <Feather name="clock" size={20} color="#6a6767" />
-          <Text style={styles.inactive}>Track</Text>
-        </View>
-
-        <View style={styles.item}>
-          <Feather name="bar-chart-2" size={20} color="#6a6767" />
-          <Text style={styles.active}>Insights</Text>
-        </View>
+        {state.routes.map((route, index) => {
+          const isFocused = state.index === index;
+          let iconName;
+          if (route.name === "Home") iconName = "home";
+          if (route.name === "Track") iconName = "clock";
+          if (route.name === "Insights") iconName = "bar-chart-2";
+          return (
+            <Pressable
+              key={index}
+              onPress={() => navigation.navigate(route.name)}
+              style={styles.item}
+            >
+              <Feather
+                name={iconName}
+                size={20}
+                color={isFocused ? "#000" : "#6a6767"}
+              />
+              <Text style={isFocused ? styles.active : styles.inactive}>
+                {route.name}
+              </Text>
+            </Pressable>
+          );
+        })}
       </View>
       <View style={styles.plus}>
         <View style={styles.plusH} />
         <View style={styles.plusV} />
       </View>
-
     </View>
   );
 }

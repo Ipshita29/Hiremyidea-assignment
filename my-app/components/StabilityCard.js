@@ -3,14 +3,12 @@ import { View, Text, StyleSheet } from "react-native";
 import Svg, { Path, Circle, Line } from "react-native-svg";
 
 export default function StabilityCard() {
-
   const GRAPH_LEFT = 40;
   const GRAPH_WIDTH = 250;
   const MONTHS = 4;
   const marchIndex = 2; 
   const step = GRAPH_WIDTH / MONTHS;
   const marchX = GRAPH_LEFT + step * marchIndex + step / 2;
-
   return (
     <View style={styles.card}>
       <Text style={styles.desc}>

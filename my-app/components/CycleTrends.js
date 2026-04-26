@@ -1,50 +1,113 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Feather } from "@expo/vector-icons"; // ✅ added
+import { Feather } from "@expo/vector-icons";
 
 const data = [
-  { m: "Jan", v: 28 },
-  { m: "Feb", v: 30 },
-  { m: "Mar", v: 28 },
-  { m: "Apr", v: 32 },
-  { m: "May", v: 28, active: true },
-  { m: "Jun", v: 28 },
+  {
+    m: "Jan",
+    v: 28,
+    segments: [
+      { type: "pink", position: 10 },
+      { type: "green", position: 55 },
+    ],
+  },
+  {
+    m: "Feb",
+    v: 30,
+    segments: [
+      { type: "pink", position: 18 },
+      { type: "green", position: 70 },
+    ],
+  },
+  {
+    m: "Mar",
+    v: 28,
+    segments: [
+      { type: "pink", position: 22 },
+      { type: "green", position: 60 },
+    ],
+  },
+  {
+    m: "Apr",
+    v: 32,
+    segments: [
+      { type: "pink", position: 25 },
+      { type: "green", position: 80 },
+    ],
+  },
+  {
+    m: "May",
+    v: 28,
+    segments: [
+      { type: "pink", position: 20 },
+      { type: "green", position: 65 },
+    ],
+  },
+  {
+    m: "Jun",
+    v: 28,
+    segments: [
+      { type: "pink", position: 12 },
+      { type: "green", position: 50 },
+    ],
+  },
 ];
 
-export default function CycleTrends() {
-  const maxValue = 34;
-  const maxHeight = 120;
-
+function Bar({ value, maxValue, segments, active }) {
+  const maxHeight = 155;
+  const height = (value / maxValue) * maxHeight;
   return (
-    <View style={s.card}> 
-      <View style={s.graph}>
-        <View style={[s.line, { top: 30 }]} />
-        <View style={[s.line, { top: 75 }]} />
-        {data.map((d, i) => {
-          const height = (d.v / maxValue) * maxHeight;
+    <View style={styles.col}>
+      <Text style={styles.val}>{value}</Text>
+      <View style={[styles.bar, { height }]}>
+        {segments.map((seg, i) => {
+          const isGreen = seg.type === "green";
           return (
-            <View key={i} style={s.col}>
-              <Text style={s.val}>{d.v}</Text>
-              <View style={[s.bar, { height }]}>
-                <View style={s.base} />
-                <View style={s.green}>
-                  <Feather name="settings" size={12} color="#fff" />
-                </View>
-                <View style={s.pink}>
-                  <Feather name="droplet" size={12} color="#fff" />
-                </View>
-              </View>
-              <Text style={s.month}>{d.m}</Text>
+            <View
+              key={i}
+              style={[
+                styles.segment,
+                {
+                  bottom: `${seg.position}%`,
+                  backgroundColor: isGreen ? "#6f8f84" : "#e58b8b",
+                },
+              ]}
+            >
+              <Feather
+                name={isGreen ? "settings" : "droplet"}
+                size={12}
+                color="#fff"
+              />
             </View>
           );
         })}
-
-        {/* arrows */}
-        <View style={s.leftBtn}>
+      </View>
+    </View>
+  );
+}
+export default function CycleTrends() {
+  const maxValue = Math.max(...data.map((d) => d.v));
+  return (
+    <View style={styles.card}>
+      <View style={styles.graph}>
+        <View style={[styles.line, { top: 60 }]} />
+        <View style={[styles.line, { top: 130 }]} />
+        {data.map((d, i) => (
+          <View key={i} style={styles.wrapper}>
+            <Bar
+              value={d.v}
+              maxValue={maxValue}
+              segments={d.segments}
+              active={d.active}
+            />
+            <Text style={styles.month}>{d.m}</Text>
+          </View>
+        ))}
+        <View style={styles.leftBtn}>
           <Text>‹</Text>
         </View>
 
-        <View style={s.rightBtn}>
+        <View style={styles.rightBtn}>
           <Text>›</Text>
         </View>
       </View>
@@ -52,41 +115,39 @@ export default function CycleTrends() {
   );
 }
 
-const s = StyleSheet.create({
+const styles = StyleSheet.create({
   card: {
     backgroundColor: "#fff",
-    padding: 16,
+    padding: 15,
     borderRadius: 18,
     marginBottom: 14,
-    shadowColor: "#000",
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 4 },
     elevation: 4,
   },
 
   graph: {
-    height: 200,
+    height: 220,
     flexDirection: "row",
+    alignItems: "flex-end", 
     justifyContent: "space-between",
-    alignItems: "flex-end",
     position: "relative",
-    paddingHorizontal: 4,
+  },
+
+  wrapper: {
+    flex: 1,
+    alignItems: "center",
   },
 
   line: {
     position: "absolute",
     left: 25,
-    right: 20,
+    right: 25,
     borderTopWidth: 1,
     borderStyle: "dashed",
-    borderColor: "#e5e5e5",
+    borderColor: "#cec7c7",
   },
 
   col: {
     alignItems: "center",
-    justifyContent: "flex-end",
-    flex: 1,
   },
 
   val: {
@@ -97,38 +158,18 @@ const s = StyleSheet.create({
   },
 
   bar: {
-    width: 18,
-    borderRadius: 12,
-    overflow: "hidden",
-    position: "relative",
+    width: 15,
+    borderRadius: 20,
     backgroundColor: "#c4b6ff",
+    position: "relative",
   },
 
-  base: {
-    flex: 1,
-    backgroundColor: "#b6acf4",
-  },
-
-  green: {
+  segment: {
     position: "absolute",
-    left: 0,
-    right: 0,
+    left: 2,
+    right: 2,
     height: 26,
-    bottom: "40%",
-    backgroundColor: "#709587",
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  pink: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    height: 24,
-    bottom: 6,
-    backgroundColor: "#e08b8b",
-    borderRadius: 10,
+    borderRadius: 13,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -141,24 +182,28 @@ const s = StyleSheet.create({
 
   leftBtn: {
     position: "absolute",
-    left: -10,
-    top: 70,
-    width: 28,
-    height: 28,
-    borderRadius: 14,
-    backgroundColor: "#f0f0f0",
+    left: -13,
+    top: 100,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderWidth: 1.5,
+    borderColor: "#a5b3cd",
+    backgroundColor: "transparent", 
     alignItems: "center",
     justifyContent: "center",
   },
 
   rightBtn: {
     position: "absolute",
-    right: -10,
-    top: 70,
-    width: 28,
-    height: 28,
-    borderRadius: 14,
-    backgroundColor: "#f0f0f0",
+    right: -13,
+    top: 100,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderWidth: 1.5,
+    borderColor: "#a5b3cd",
+    backgroundColor: "transparent", 
     alignItems: "center",
     justifyContent: "center",
   },
