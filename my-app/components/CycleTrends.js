@@ -16,34 +16,23 @@ export default function CycleTrends() {
 
   return (
     <View style={s.card}> 
-
       <View style={s.graph}>
-        
-        {/* dashed lines */}
         <View style={[s.line, { top: 30 }]} />
         <View style={[s.line, { top: 75 }]} />
-
         {data.map((d, i) => {
           const height = (d.v / maxValue) * maxHeight;
-
           return (
             <View key={i} style={s.col}>
               <Text style={s.val}>{d.v}</Text>
-
               <View style={[s.bar, { height }, d.active && s.active]}>
                 <View style={s.base} />
-
-                {/* GREEN - middle */}
                 <View style={s.green}>
                   <Text style={s.icon}>⚙️</Text>
                 </View>
-
-                {/* PINK - bottom */}
                 <View style={s.pink}>
                   <Text style={s.icon}>💧</Text>
                 </View>
               </View>
-
               <Text style={[s.month, d.active && s.activeText]}>
                 {d.m}
               </Text>
@@ -66,13 +55,11 @@ export default function CycleTrends() {
 }
 
 const s = StyleSheet.create({
-  /* ✅ CARD SAME AS OTHER COMPONENTS */
   card: {
     backgroundColor: "#fff",
     padding: 16,
     borderRadius: 18,
-    marginBottom: 14, // 🔥 better than marginTop for stacking
-
+    marginBottom: 14, 
     shadowColor: "#000",
     shadowOpacity: 0.05,
     shadowRadius: 10,
@@ -81,7 +68,7 @@ const s = StyleSheet.create({
   },
 
   graph: {
-    height: 170,
+    height: 200,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
@@ -99,9 +86,10 @@ const s = StyleSheet.create({
   },
 
   col: {
-    alignItems: "center",
-    flex: 1,
-  },
+  alignItems: "center",
+  justifyContent: "flex-end", 
+  flex: 1,
+},
 
   val: {
     fontSize: 12,

@@ -1,25 +1,27 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function LifestyleHeatmap() {
-    const data = [
+  const data = [
     {
-        name: "Sleep",
-        colors: ["#c9c3e6", "#bdb5df", "#b0a7d8", "#a49bd1", "#9a92cc"],
+      name: "Sleep",
+      colors: ["#c9c3e6", "#bdb5df", "#b0a7d8", "#a49bd1", "#9a92cc"],
     },
     {
-        name: "Hydrate",
-        colors: ["#e9a7a7", "#e39b9b", "#dd8f8f"],
+      name: "Hydrate",
+      colors: ["#e9a7a7", "#e39b9b", "#dd8f8f"],
     },
     {
-        name: "Caffeine",
-        colors: ["#7f9c91", "#738f85", "#6a847a", "#617a71"],
+      name: "Caffeine",
+      colors: ["#7f9c91", "#738f85", "#6a847a", "#617a71"],
     },
     {
-        name: "Exercise",
-        colors: ["#e3b3b3", "#dbabab", "#d3a3a3", "#dd8f8f"],
+      name: "Exercise",
+      colors: ["#e3b3b3", "#dbabab", "#d3a3a3", "#dd8f8f"],
     },
-    ];
+  ];
+
   return (
     <View style={styles.card}>
       <View style={styles.box}>
@@ -29,28 +31,31 @@ export default function LifestyleHeatmap() {
             <Text style={styles.dropText}>4 months</Text>
           </View>
         </View>
-
-        {/* Rows */}
         {data.map((row, i) => {
-            let tiles = [];
-            for (let j = 0; j < 8; j++) {
-                tiles.push(
-                <View
-                    key={j}
-                    style={[
-                    styles.tile,
-                    {backgroundColor: row.colors[j]? row.colors[j]: "#e6e6e6",},
-                    ]}
-                />
-                );
-            }
-            return (
-                <View key={i} style={styles.row}>
-                <Text style={styles.label}>{row.name}</Text>
-                <View style={styles.tiles}>{tiles}</View>
-                </View>
+          let tiles = [];
+          for (let j = 0; j < 8; j++) {
+            const color = row.colors[j];
+            tiles.push(
+              <LinearGradient
+                key={j}
+                colors={
+                  color
+                    ? [color, "#ffffff"] 
+                    : ["#e6e6e6", "#f2f2f2"]
+                }
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.tile}
+              />
             );
-            })}
+          }
+          return (
+            <View key={i} style={styles.row}>
+              <Text style={styles.label}>{row.name}</Text>
+              <View style={styles.tiles}>{tiles}</View>
+            </View>
+          );
+        })}
       </View>
     </View>
   );
@@ -61,14 +66,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 
-  heading: {
-    fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 10,
-  },
-
   box: {
-    backgroundColor: "#fff",
+    backgroundColor: "rgba(255,255,255,0.9)", 
     padding: 16,
     borderRadius: 18,
 
@@ -79,6 +78,12 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
 
+  title: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#111",
+  },
+
   topRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -87,8 +92,6 @@ const styles = StyleSheet.create({
   },
 
   dropdown: {
-    flexDirection: "row",
-    alignItems: "center",
     backgroundColor: "#f2f2f2",
     paddingHorizontal: 10,
     paddingVertical: 4,
@@ -118,8 +121,10 @@ const styles = StyleSheet.create({
   },
 
   tile: {
-    width: 26,  
+    width: 26,
     height: 26,
     borderRadius: 6,
+    borderWidth: 0.5,
+    borderColor: "rgba(0,0,0,0.05)",
   },
 });

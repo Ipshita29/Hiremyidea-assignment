@@ -1,5 +1,7 @@
 import React from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import StabilityCard from "../components/StabilityCard";
@@ -11,65 +13,48 @@ import BottomNav from "../components/BottomNav";
 
 export default function InsightsScreen() {
   return (
-    <SafeAreaView style={styles.container}>
-      
-      {/* 🔹 Header */}
-      <View style={styles.headerRow}>
-        <View style={styles.dotGrid}>
-          <View style={[styles.dot, { backgroundColor: "#c7bafc" }]} />
-          <View style={[styles.dot, { backgroundColor: "#b8a9f8" }]} />
-          <View style={[styles.dot, { backgroundColor: "#f2b6b6" }]} />
-          <View style={[styles.dot, { backgroundColor: "#e58b8b" }]} />
+    <LinearGradient
+      colors={["#f7e0e0", "#e1f5f0", "#f9fbf9"]}
+      style={{ flex: 1 }}
+    >
+      <StatusBar style="dark" translucent />
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.container}>
+          <View style={styles.headerRow}>
+            <View style={styles.dotGrid}>
+              <View style={[styles.dot, { backgroundColor: "#c7bafc" }]} />
+              <View style={[styles.dot, { backgroundColor: "#b8a9f8" }]} />
+              <View style={[styles.dot, { backgroundColor: "#f2b6b6" }]} />
+              <View style={[styles.dot, { backgroundColor: "#e58b8b" }]} />
+            </View>
+            <Text style={styles.header}>Insights</Text>
+            <View style={{ width: 30 }} />
+          </View>
+          <ScrollView contentContainerStyle={styles.content}>
+            <Text style={styles.sectionTitle}>Stability Summary</Text>
+            <StabilityCard />
+            <Text style={styles.sectionTitle}>Cycle Trends</Text>
+            <CycleTrends />
+            <Text style={styles.sectionTitle}>Body & Metabolic Trends</Text>
+            <BodyTrends />
+            <Text style={styles.sectionTitle}>Body Signals</Text>
+            <View style={{ marginTop: 10 }}>
+              <SymptomsChart />
+            </View>
+            <Text style={styles.sectionTitle}>Lifestyle Impact</Text>
+            <LifestyleHeatmap />
+            <View style={{ height: 120 }} />
+          </ScrollView>
+          <BottomNav />
         </View>
-
-        <Text style={styles.header}>Insights</Text>
-
-        <View style={{ width: 30 }} />
-      </View>
-
-      {/* 🔹 Scrollable Content */}
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.content}
-      >
-        <Text style={styles.sectionTitle}>Stability Summary</Text>
-        <View style={styles.stabilityCard}>
-          <StabilityCard />
-        </View>
-
-        <Text style={styles.sectionTitle}>Cycle Trends</Text>
-        <CycleTrends />
-
-        <Text style={styles.sectionTitle}>Body & Metabolic Trends</Text>
-        <BodyTrends />
-
-        <Text style={styles.sectionTitle}>Body Signals</Text>
-        <SymptomsChart />
-
-        <Text style={styles.sectionTitle}>Lifestyle Impact</Text>
-        <LifestyleHeatmap />
-
-        {/* 🔥 Extra space so content not hidden behind bottom nav */}
-        <View style={{ height: 120 }} />
-      </ScrollView>
-
-      {/* 🔹 Bottom Navigation */}
-      <BottomNav />
-
-    </SafeAreaView>
+      </SafeAreaView>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f1f7f9",
-  },
-
-  content: {
-    paddingHorizontal: 16,
-    paddingTop: 10,
-    paddingBottom: 20,
   },
 
   headerRow: {
@@ -77,8 +62,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 16,
-    paddingVertical: 10,
-    marginTop: 10, // 🔥 prevents header from sticking to top
+    paddingVertical: 12, 
   },
 
   header: {
@@ -101,15 +85,17 @@ const styles = StyleSheet.create({
     margin: 1,
   },
 
+  content: {
+    paddingHorizontal: 16,
+    paddingTop: 10,
+    paddingBottom: 20,
+  },
+
   sectionTitle: {
     fontSize: 16,
     fontWeight: "600",
     marginBottom: 8,
     marginTop: 10,
     color: "#111",
-  },
-
-  stabilityCard: {
-    backgroundColor: "#f7f8fb",
   },
 });

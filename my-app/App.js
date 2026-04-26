@@ -1,10 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import InsightsScreen from './screens/InsightsScreen';
+import React from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import InsightsScreen from "./screens/InsightsScreen"; 
 
 export default function App() {
   return (
-    <InsightsScreen/>
+    <SafeAreaProvider>
+      <InsightsScreen />
+    </SafeAreaProvider>
   );
 }
-;
