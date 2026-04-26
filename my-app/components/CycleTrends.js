@@ -104,11 +104,11 @@ export default function CycleTrends() {
           </View>
         ))}
         <View style={styles.leftBtn}>
-          <Text>‹</Text>
+          <Text style={styles.arrow}>‹</Text>
         </View>
 
         <View style={styles.rightBtn}>
-          <Text>›</Text>
+          <Text style={styles.arrow}>›</Text>
         </View>
       </View>
     </View>
@@ -182,10 +182,10 @@ const styles = StyleSheet.create({
 
   leftBtn: {
     position: "absolute",
-    left: -13,
+    left: -8,
     top: 100,
-    width: 30,
-    height: 30,
+    width: 20,
+    height: 20,
     borderRadius: 15,
     borderWidth: 1.5,
     borderColor: "#a5b3cd",
@@ -196,10 +196,10 @@ const styles = StyleSheet.create({
 
   rightBtn: {
     position: "absolute",
-    right: -13,
+    right: -8,
     top: 100,
-    width: 30,
-    height: 30,
+    width: 20,
+    height: 20,
     borderRadius: 15,
     borderWidth: 1.5,
     borderColor: "#a5b3cd",
@@ -207,4 +207,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  arrow:{
+    color:"#a5b3cd"
+  }
 });

@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     fontSize: 12,
-    color: "#999",
+    color: "#1b1b1b",
   },
 
   tooltipWrap: {

@@ -1,8 +1,14 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { Feather } from "@expo/vector-icons";
 
 export default function LifestyleHeatmap() {
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState("4 months");
+
+  const options = ["1 month", "2 months", "3 months", "4 months"];
+
   const data = [
     {
       name: "Sleep",
@@ -27,8 +33,30 @@ export default function LifestyleHeatmap() {
       <View style={styles.box}>
         <View style={styles.topRow}>
           <Text style={styles.title}>Correlation Strength</Text>
-          <View style={styles.dropdown}>
-            <Text style={styles.dropText}>4 months</Text>
+          <View style={styles.dropdownWrapper}>
+            <Pressable
+              style={styles.dropdown}
+              onPress={() => setOpen(!open)}
+            >
+              <Text style={styles.dropText}>{selected}</Text>
+              <Feather name="chevron-down" size={14} color="#666" />
+            </Pressable>
+            {open && (
+              <View style={styles.menu}>
+                {options.map((opt, i) => (
+                  <Pressable
+                    key={i}
+                    style={styles.option}
+                    onPress={() => {
+                      setSelected(opt);
+                      setOpen(false);
+                    }}
+                  >
+                    <Text style={styles.optionText}>{opt}</Text>
+                  </Pressable>
+                ))}
+              </View>
+            )}
           </View>
         </View>
         {data.map((row, i) => {
@@ -40,7 +68,7 @@ export default function LifestyleHeatmap() {
                 key={j}
                 colors={
                   color
-                    ? [color, "#ffffff"] 
+                    ? [color, "#ffffff"]
                     : ["#e6e6e6", "#f2f2f2"]
                 }
                 start={{ x: 0, y: 0 }}
@@ -67,15 +95,12 @@ const styles = StyleSheet.create({
   },
 
   box: {
-    backgroundColor: "rgba(255,255,255,0.9)", 
+    backgroundColor: "rgba(255,255,255,0.9)",
     padding: 16,
     borderRadius: 18,
-
-    shadowColor: "#000",
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 4 },
     elevation: 4,
+
+    overflow: "visible", 
   },
 
   title: {
@@ -89,18 +114,53 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 14,
+    zIndex: 10, 
+  },
+
+  dropdownWrapper: {
+    position: "relative",
+    zIndex: 20, 
   },
 
   dropdown: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
     backgroundColor: "#f2f2f2",
     paddingHorizontal: 10,
-    paddingVertical: 4,
+    paddingVertical: 6,
     borderRadius: 12,
   },
 
   dropText: {
     fontSize: 12,
     color: "#666",
+  },
+
+  menu: {
+    position: "absolute",
+    top: 36,
+    right: 0,
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    paddingVertical: 6,
+    width: 110,
+    zIndex: 50,    
+    elevation: 10,  
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 4 },
+  },
+
+  option: {
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+  },
+
+  optionText: {
+    fontSize: 12,
+    color: "#444",
   },
 
   row: {

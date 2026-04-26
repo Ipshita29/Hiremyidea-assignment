@@ -14,7 +14,7 @@ import BottomNav from "../components/BottomNav";
 export default function InsightsScreen() {
   return (
     <LinearGradient
-      colors={["#eacfcf", "#eaf1ef", "#f4f8f4"]}
+      colors={["#f7e0e0", "#eaf1ef", "#f4f8f4"]}
       style={{ flex: 1 }}
     >
       <StatusBar style="dark" translucent />
