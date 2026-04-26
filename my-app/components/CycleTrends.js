@@ -20,28 +20,20 @@ export default function CycleTrends() {
       <View style={s.graph}>
         <View style={[s.line, { top: 30 }]} />
         <View style={[s.line, { top: 75 }]} />
-
         {data.map((d, i) => {
           const height = (d.v / maxValue) * maxHeight;
-
           return (
             <View key={i} style={s.col}>
               <Text style={s.val}>{d.v}</Text>
-
               <View style={[s.bar, { height }]}>
                 <View style={s.base} />
-
-                {/* ✅ GREEN ICON */}
                 <View style={s.green}>
                   <Feather name="settings" size={12} color="#fff" />
                 </View>
-
-                {/* ✅ PINK ICON */}
                 <View style={s.pink}>
                   <Feather name="droplet" size={12} color="#fff" />
                 </View>
               </View>
-
               <Text style={s.month}>{d.m}</Text>
             </View>
           );
