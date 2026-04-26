@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import Svg, { Path, Circle } from "react-native-svg";
+import Svg, { Path, Circle, Defs, LinearGradient, Stop } from "react-native-svg";
 
 export default function BodyTrends() {
   const [tab, setTab] = useState("Monthly");
@@ -71,6 +71,7 @@ export default function BodyTrends() {
           <Text style={styles.title}>Your weight</Text>
           <Text style={styles.sub}>in kg</Text>
         </View>
+
         <View style={styles.toggle}>
           {["Monthly", "Weekly"].map((t) => (
             <TouchableOpacity
@@ -85,16 +86,24 @@ export default function BodyTrends() {
           ))}
         </View>
       </View>
+
       <View style={styles.graph}>
         <View style={[styles.line, { top: 15 }]} />
         <View style={[styles.line, { top: 60 }]} />
         <View style={[styles.line, { top: 100 }]} />
+
         <Text style={[styles.y, { top: 10 }]}>75</Text>
         <Text style={[styles.y, { top: 55 }]}>50</Text>
         <Text style={[styles.y, { top: 95 }]}>25</Text>
 
         <Svg width={320} height={140}>
-          <Path d={current.area} fill="#ebbfbf" opacity="0.35" />
+          <Defs>
+            <LinearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+              <Stop offset="0%" stopColor="#f67a7a" stopOpacity="0.5" />
+              <Stop offset="100%" stopColor="#f99a9a" stopOpacity="0.05" />
+            </LinearGradient>
+          </Defs>
+          <Path d={current.area} fill="url(#areaGrad)" />
           <Path
             d={current.path}
             stroke="#ff5a5a"
@@ -103,9 +112,9 @@ export default function BodyTrends() {
           />
           {current.points.map((p, i) => (
             <React.Fragment key={i}>
-              <Circle cx={p.x} cy={p.y} r="7" fill="#F6C7C7" />
+              <Circle cx={p.x} cy={p.y} r="7" fill="#f5b9b9" />
               <Circle cx={p.x} cy={p.y} r="5" fill="#fff" />
-              <Circle cx={p.x} cy={p.y} r="2.5" fill="#ff5d5d" />
+              <Circle cx={p.x} cy={p.y} r="2.5" fill="#f15959" />
             </React.Fragment>
           ))}
         </Svg>
@@ -159,7 +168,7 @@ const styles = StyleSheet.create({
   btn: {
     paddingHorizontal: 12,
     paddingVertical: 5,
-    borderRadius: 16,
+    borderRadius: 10,
   },
 
   activeBtn: {

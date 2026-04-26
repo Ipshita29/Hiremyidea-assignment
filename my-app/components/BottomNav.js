@@ -8,17 +8,17 @@ export default function BottomNav() {
     <View style={styles.wrapper}>
       <View style={styles.nav}>
         <View style={styles.item}>
-          <Feather name="home" size={20} color="#999" />
+          <Feather name="home" size={20} color="#6a6767" />
           <Text style={styles.inactive}>Home</Text>
         </View>
 
         <View style={styles.item}>
-          <Feather name="clock" size={20} color="#999" />
+          <Feather name="clock" size={20} color="#6a6767" />
           <Text style={styles.inactive}>Track</Text>
         </View>
 
         <View style={styles.item}>
-          <Feather name="bar-chart-2" size={20} color="#000" />
+          <Feather name="bar-chart-2" size={20} color="#6a6767" />
           <Text style={styles.active}>Insights</Text>
         </View>
       </View>
@@ -46,12 +46,12 @@ const styles = StyleSheet.create({
     width: width * 0.73,
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#f6f4f4",
+    backgroundColor: "#f5fcf8",
     paddingVertical: 14,
     paddingHorizontal: 28,
     borderRadius: 40,
     shadowColor: "#000",
-    shadowOpacity: 0.08,
+    shadowOpacity: 0.2,
     shadowRadius: 12,
     shadowOffset: { width: 0, height: 6 },
     elevation: 6,
@@ -84,9 +84,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#f2f2f2",
     alignItems: "center",
     justifyContent: "center",
-
     shadowColor: "#000",
-    shadowOpacity: 0.15,
+    shadowOpacity: 0.2,
     shadowRadius: 14,
     shadowOffset: { width: 0, height: 6 },
     elevation: 10,

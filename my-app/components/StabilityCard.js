@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
 
   desc: {
     color: "#777",
-    fontSize: 13,
+    fontSize: 15,
     marginBottom: 12,
   },
 

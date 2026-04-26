@@ -18,9 +18,9 @@ export default function SymptomsChart() {
 
   const data = [
     { value: 30, label: "Mood", color: "#E3B1B1", light: "#fde7e7" },
-    { value: 31, label: "Bloating", color: "#A9A3C9", light: "#ece9ff" },
-    { value: 21, label: "Fatigue", color: "#D88989", light: "#ffe3e3" },
-    { value: 17, label: "Acne", color: "#7F9C91", light: "#e3f3ee" },
+    { value: 31, label: "Bloating", color: "#9993c1", light: "#ece9ff" },
+    { value: 21, label: "Fatigue", color: "#e27272", light: "#ffe3e3" },
+    { value: 17, label: "Acne", color: "#7fb09d", light: "#e3f3ee" },
   ];
 
   let startAngle = -90;
@@ -38,7 +38,6 @@ export default function SymptomsChart() {
     const p2 = getPoint(end, outer);
     const p3 = getPoint(end, inner);
     const p4 = getPoint(start, inner);
-
     const largeArc = end - start > 180 ? 1 : 0;
 
     return `
@@ -54,7 +53,6 @@ export default function SymptomsChart() {
     <View style={styles.card}>
       <Text style={styles.title}>Symptom Trends</Text>
       <Text style={styles.sub}>Compared to last cycle</Text>
-
       <View style={styles.container}>
         <Svg width={size} height={size}>
           <Defs>
@@ -65,25 +63,16 @@ export default function SymptomsChart() {
               </RadialGradient>
             ))}
           </Defs>
-
           {data.map((item, i) => {
             const angle = (item.value / 100) * 360;
             const endAngle = startAngle + angle;
-
             const path = createArc(startAngle, endAngle);
             const mid = (startAngle + endAngle) / 2;
-
-            // 🔥 FIX: controlled bubble distance (no overlap)
             const bubblePos = getPoint(mid, outer + 10);
-
             startAngle = endAngle;
-
             return (
               <React.Fragment key={i}>
-                {/* gradient slice */}
                 <Path d={path} fill={`url(#grad${i})`} />
-
-                {/* bubble */}
                 <View
                   style={[
                     styles.bubble,
@@ -99,8 +88,6 @@ export default function SymptomsChart() {
               </React.Fragment>
             );
           })}
-
-          {/* center hole */}
           <Circle cx={cx} cy={cy} r={inner} fill="#fff" />
         </Svg>
       </View>
@@ -110,7 +97,7 @@ export default function SymptomsChart() {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "rgba(255,255,255,0.9)", // 🔥 blends with gradient
+    backgroundColor: "rgba(255,255,255,0.9)", 
     borderRadius: 20,
     padding: 18,
     marginTop: 20,
@@ -136,7 +123,7 @@ const styles = StyleSheet.create({
 
   container: {
     width: 260,
-    height: 300, // 🔥 IMPORTANT FIX (prevents overlap)
+    height: 300, 
     alignSelf: "center",
     position: "relative",
   },

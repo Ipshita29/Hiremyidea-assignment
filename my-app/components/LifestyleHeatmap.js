@@ -6,19 +6,19 @@ export default function LifestyleHeatmap() {
   const data = [
     {
       name: "Sleep",
-      colors: ["#c9c3e6", "#bdb5df", "#b0a7d8", "#a49bd1", "#9a92cc"],
+      colors: ["#8773ea", "#8773ea", "#8773ea", "#8773ea", "#8773ea"],
     },
     {
       name: "Hydrate",
-      colors: ["#e9a7a7", "#e39b9b", "#dd8f8f"],
+      colors: ["#dd8484", "#dd8484", "#dd8484"],
     },
     {
       name: "Caffeine",
-      colors: ["#7f9c91", "#738f85", "#6a847a", "#617a71"],
+      colors: ["#5e9580", "#5e9580", "#5e9580", "#5e9580"],
     },
     {
       name: "Exercise",
-      colors: ["#e3b3b3", "#dbabab", "#d3a3a3", "#dd8f8f"],
+      colors: ["#f1afaf", "#f1afaf", "#f1afaf", "#f1afaf"],
     },
   ];
 

@@ -14,7 +14,7 @@ import BottomNav from "../components/BottomNav";
 export default function InsightsScreen() {
   return (
     <LinearGradient
-      colors={["#f7e0e0", "#e1f5f0", "#f9fbf9"]}
+      colors={["#f4d9d9", "#eaf1ef", "#f4f8f4"]}
       style={{ flex: 1 }}
     >
       <StatusBar style="dark" translucent />
@@ -22,10 +22,10 @@ export default function InsightsScreen() {
         <View style={styles.container}>
           <View style={styles.headerRow}>
             <View style={styles.dotGrid}>
-              <View style={[styles.dot, { backgroundColor: "#c7bafc" }]} />
-              <View style={[styles.dot, { backgroundColor: "#b8a9f8" }]} />
-              <View style={[styles.dot, { backgroundColor: "#f2b6b6" }]} />
-              <View style={[styles.dot, { backgroundColor: "#e58b8b" }]} />
+              <View style={[styles.dot, { backgroundColor: "#9a85ef" }]} />
+              <View style={[styles.dot, { backgroundColor: "#c7bdf4" }]} />
+              <View style={[styles.dot, { backgroundColor: "#c7bdf4" }]} />
+              <View style={[styles.dot, { backgroundColor: "#9a85ef" }]} />
             </View>
             <Text style={styles.header}>Insights</Text>
             <View style={{ width: 30 }} />
@@ -72,15 +72,15 @@ const styles = StyleSheet.create({
   },
 
   dotGrid: {
-    width: 22,
+    width: 25,
     height: 22,
     flexDirection: "row",
     flexWrap: "wrap",
   },
 
   dot: {
-    width: 8,
-    height: 8,
+    width: 10,
+    height: 10,
     borderRadius: 4,
     margin: 1,
   },

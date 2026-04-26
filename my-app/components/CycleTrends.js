@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { Feather } from "@expo/vector-icons"; // ✅ added
 
 const data = [
   { m: "Jan", v: 28 },
@@ -19,23 +20,29 @@ export default function CycleTrends() {
       <View style={s.graph}>
         <View style={[s.line, { top: 30 }]} />
         <View style={[s.line, { top: 75 }]} />
+
         {data.map((d, i) => {
           const height = (d.v / maxValue) * maxHeight;
+
           return (
             <View key={i} style={s.col}>
               <Text style={s.val}>{d.v}</Text>
-              <View style={[s.bar, { height }, d.active && s.active]}>
+
+              <View style={[s.bar, { height }]}>
                 <View style={s.base} />
+
+                {/* ✅ GREEN ICON */}
                 <View style={s.green}>
-                  <Text style={s.icon}>⚙️</Text>
+                  <Feather name="settings" size={12} color="#fff" />
                 </View>
+
+                {/* ✅ PINK ICON */}
                 <View style={s.pink}>
-                  <Text style={s.icon}>💧</Text>
+                  <Feather name="droplet" size={12} color="#fff" />
                 </View>
               </View>
-              <Text style={[s.month, d.active && s.activeText]}>
-                {d.m}
-              </Text>
+
+              <Text style={s.month}>{d.m}</Text>
             </View>
           );
         })}
@@ -48,7 +55,6 @@ export default function CycleTrends() {
         <View style={s.rightBtn}>
           <Text>›</Text>
         </View>
-
       </View>
     </View>
   );
@@ -59,7 +65,7 @@ const s = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 16,
     borderRadius: 18,
-    marginBottom: 14, 
+    marginBottom: 14,
     shadowColor: "#000",
     shadowOpacity: 0.05,
     shadowRadius: 10,
@@ -78,7 +84,7 @@ const s = StyleSheet.create({
 
   line: {
     position: "absolute",
-    left: 20,
+    left: 25,
     right: 20,
     borderTopWidth: 1,
     borderStyle: "dashed",
@@ -86,10 +92,10 @@ const s = StyleSheet.create({
   },
 
   col: {
-  alignItems: "center",
-  justifyContent: "flex-end", 
-  flex: 1,
-},
+    alignItems: "center",
+    justifyContent: "flex-end",
+    flex: 1,
+  },
 
   val: {
     fontSize: 12,
@@ -103,17 +109,12 @@ const s = StyleSheet.create({
     borderRadius: 12,
     overflow: "hidden",
     position: "relative",
-    backgroundColor: "#c7bafc",
+    backgroundColor: "#c4b6ff",
   },
 
   base: {
     flex: 1,
-    backgroundColor: "#a99cf5",
-  },
-
-  active: {
-    borderWidth: 2,
-    borderColor: "#7B61FF",
+    backgroundColor: "#b6acf4",
   },
 
   green: {
@@ -122,7 +123,7 @@ const s = StyleSheet.create({
     right: 0,
     height: 26,
     bottom: "40%",
-    backgroundColor: "#6f8f83",
+    backgroundColor: "#709587",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
@@ -140,20 +141,10 @@ const s = StyleSheet.create({
     justifyContent: "center",
   },
 
-  icon: {
-    fontSize: 10,
-    color: "#fff",
-  },
-
   month: {
     marginTop: 8,
     fontSize: 12,
     color: "#aaa",
-  },
-
-  activeText: {
-    color: "#000",
-    fontWeight: "600",
   },
 
   leftBtn: {
