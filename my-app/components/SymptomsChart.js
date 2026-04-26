@@ -1,65 +1,65 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import Svg, { Circle } from "react-native-svg";
+import { PieChart } from "react-native-gifted-charts";
 
 export default function SymptomsChart() {
-  const size = 220;
-  const stroke = 42;
-  const radius = (size - stroke) / 2;
-  const cx = size / 2;
-  const data = [
-    { value: 30, color: "#e6b4b4", label: "Mood" },
-    { value: 31, color: "#a9a0cf", label: "Bloating" },
-    { value: 21, color: "#d8a2a2", label: "Fatigue" },
-    { value: 17, color: "#7f9c91", label: "Acne" },
+  const pieData = [
+    {
+      value: 30,
+      color: "#E3B1B1",
+      text: "30%",
+    },
+    {
+      value: 31,
+      color: "#A9A3C9",
+      text: "31%",
+    },
+    {
+      value: 21,
+      color: "#D88989",
+      text: "21%",
+    },
+    {
+      value: 17,
+      color: "#7F9C91",
+      text: "17%",
+    },
   ];
-  let start = 0;
+
   return (
     <View style={styles.card}>
       <Text style={styles.title}>Symptom Trends</Text>
       <Text style={styles.sub}>Compared to last cycle</Text>
-      <View style={styles.wrap}>
-        <Svg width={size} height={size}>
-          {data.map((item, i) => {
-            const dash = (item.value / 100) * Math.PI * 2 * radius;
-            const gap = Math.PI * 2 * radius - dash;
-            const circle = (
-              <Circle
-                key={i}
-                cx={cx}
-                cy={cx}
-                r={radius}
-                stroke={item.color}
-                strokeWidth={stroke}
-                strokeDasharray={`${dash} ${gap}`}
-                strokeDashoffset={-start}
-                strokeLinecap="butt"
-                fill="none"
-              />
-            );
-            start += dash;
-            return circle;
-          })}
-        </Svg>
-
-        <View style={[styles.label, { top: 30, left: 35 }]}>
-          <Text style={styles.pct}>30%</Text>
-          <Text style={styles.lab}>Mood</Text>
-        </View>
-
-        <View style={[styles.label, { top: 40, right: 25 }]}>
-          <Text style={styles.pct}>31%</Text>
-          <Text style={styles.lab}>Bloating</Text>
-        </View>
-
-        <View style={[styles.label, { bottom: 20, right: 50 }]}>
-          <Text style={styles.pct}>21%</Text>
-          <Text style={styles.lab}>Fatigue</Text>
-        </View>
-
-        <View style={[styles.label, { bottom: 30, left: 25 }]}>
-          <Text style={styles.pct}>17%</Text>
-          <Text style={styles.lab}>Acne</Text>
+      <View style={styles.container}>
+        <PieChart
+          donut
+          data={pieData}
+          radius={110}              
+          innerRadius={60}          
+          showText
+          textColor="#111"
+          textSize={12}
+          showTextBackground
+          textBackgroundRadius={20}  
+          focusOnPress
+        />
+        <View style={styles.legend}>
+          <View style={styles.row}>
+            <View style={[styles.dot, { backgroundColor: "#E3B1B1" }]} />
+            <Text>Mood</Text>
+          </View>
+          <View style={styles.row}>
+            <View style={[styles.dot, { backgroundColor: "#A9A3C9" }]} />
+            <Text>Bloating</Text>
+          </View>
+          <View style={styles.row}>
+            <View style={[styles.dot, { backgroundColor: "#D88989" }]} />
+            <Text>Fatigue</Text>
+          </View>
+          <View style={styles.row}>
+            <View style={[styles.dot, { backgroundColor: "#7F9C91" }]} />
+            <Text>Acne</Text>
+          </View>
         </View>
 
       </View>
@@ -69,20 +69,20 @@ export default function SymptomsChart() {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "#fff",
-    padding: 16,
-    borderRadius: 18,
+    borderRadius: 20,
+    padding: 18,
     marginTop: 20,
-
     shadowColor: "#000",
     shadowOpacity: 0.05,
     shadowRadius: 10,
     shadowOffset: { width: 0, height: 4 },
     elevation: 4,
   },
-  
+
   title: {
     fontSize: 16,
     fontWeight: "600",
+    color: "#111",
   },
 
   sub: {
@@ -91,34 +91,28 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  wrap: {
+  container: {
     alignItems: "center",
     justifyContent: "center",
     position: "relative",
   },
 
-  label: {
-    position: "absolute",
-    backgroundColor: "#fff",
-    paddingVertical: 8,
+  legend: {
+    marginTop: 15,
+    width: "100%",
     paddingHorizontal: 10,
-    borderRadius: 30,
+  },
+
+  row: {
+    flexDirection: "row",
     alignItems: "center",
-
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 3,
+    marginBottom: 6,
   },
 
-  pct: {
-    fontWeight: "700",
-    fontSize: 14,
-  },
-
-  lab: {
-    fontSize: 11,
-    color: "#666",
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginRight: 8,
   },
 });

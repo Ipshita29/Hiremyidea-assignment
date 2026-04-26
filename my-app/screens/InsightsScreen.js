@@ -11,11 +11,10 @@ import BottomNav from "../components/BottomNav";
 
 export default function InsightsScreen() {
   return (
-    <SafeAreaView style={styles.container} edges={["top"]}>
+    <SafeAreaView style={styles.container}>
       
-      {/* HEADER */}
+      {/* 🔹 Header */}
       <View style={styles.headerRow}>
-        
         <View style={styles.dotGrid}>
           <View style={[styles.dot, { backgroundColor: "#c7bafc" }]} />
           <View style={[styles.dot, { backgroundColor: "#b8a9f8" }]} />
@@ -28,50 +27,49 @@ export default function InsightsScreen() {
         <View style={{ width: 30 }} />
       </View>
 
+      {/* 🔹 Scrollable Content */}
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.content}
       >
-
         <Text style={styles.sectionTitle}>Stability Summary</Text>
         <View style={styles.stabilityCard}>
           <StabilityCard />
         </View>
 
         <Text style={styles.sectionTitle}>Cycle Trends</Text>
-          <CycleTrends />
-
+        <CycleTrends />
 
         <Text style={styles.sectionTitle}>Body & Metabolic Trends</Text>
-          <BodyTrends />
+        <BodyTrends />
 
         <Text style={styles.sectionTitle}>Body Signals</Text>
-          <SymptomsChart />
-
+        <SymptomsChart />
 
         <Text style={styles.sectionTitle}>Lifestyle Impact</Text>
-          <LifestyleHeatmap />
+        <LifestyleHeatmap />
 
-        <View style={{ height: 100 }} />
+        {/* 🔥 Extra space so content not hidden behind bottom nav */}
+        <View style={{ height: 120 }} />
       </ScrollView>
 
-      <SafeAreaView edges={["bottom"]}>
-        <BottomNav />
-      </SafeAreaView>
+      {/* 🔹 Bottom Navigation */}
+      <BottomNav />
 
     </SafeAreaView>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#eef2f3",
+    backgroundColor: "#f1f7f9",
   },
 
   content: {
     paddingHorizontal: 16,
-    paddingTop: 6,
-    paddingBottom: 20, 
+    paddingTop: 10,
+    paddingBottom: 20,
   },
 
   headerRow: {
@@ -80,7 +78,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 16,
     paddingVertical: 10,
-    marginTop: 4,
+    marginTop: 10, // 🔥 prevents header from sticking to top
   },
 
   header: {
@@ -113,17 +111,5 @@ const styles = StyleSheet.create({
 
   stabilityCard: {
     backgroundColor: "#f7f8fb",
-  },
-
-  innerTitle: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#111",
-  },
-
-  sub: {
-    fontSize: 12,
-    color: "#888",
-    marginBottom: 10,
   },
 });

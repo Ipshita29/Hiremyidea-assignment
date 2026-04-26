@@ -4,36 +4,73 @@ import Svg, { Path, Circle } from "react-native-svg";
 
 export default function BodyTrends() {
   const [tab, setTab] = useState("Monthly");
+  const data = {
+    Monthly: {
+      labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+      path: `
+        M20 95
+        C60 85, 80 70, 110 75
+        S160 100, 180 80
+        S220 30, 240 35
+        S280 70, 300 60
+      `,
+      area: `
+        M20 95
+        C60 85, 80 70, 110 75
+        S160 100, 180 80
+        S220 30, 240 35
+        S280 70, 300 60
+        L300 120
+        L20 120
+        Z
+      `,
+      points: [
+        { x: 40, y: 90 },
+        { x: 110, y: 75 },
+        { x: 170, y: 90 },
+        { x: 230, y: 40 },
+        { x: 290, y: 65 },
+      ],
+    },
 
-  // 🔥 SAME points used for line + dots
-  const points = [
-    { x: 20, y: 105 },  // Jan
-    { x: 80, y: 75 },   // Feb
-    { x: 140, y: 90 },  // Mar
-    { x: 200, y: 30 },  // Apr (peak)
-    { x: 260, y: 60 },  // May
-  ];
-
-  // Smooth curve using midpoints (simple + clean)
-  const getPath = () => {
-    let d = `M ${points[0].x} ${points[0].y}`;
-    for (let i = 1; i < points.length; i++) {
-      const midX = (points[i - 1].x + points[i].x) / 2;
-      d += ` Q ${midX} ${points[i - 1].y}, ${points[i].x} ${points[i].y}`;
-    }
-    return d;
+    Weekly: {
+      labels: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+      path: `
+        M20 80
+        C60 60, 80 100, 110 70
+        S160 40, 180 60
+        S220 90, 240 70
+        S280 50, 300 65
+      `,
+      area: `
+        M20 80
+        C60 60, 80 100, 110 70
+        S160 40, 180 60
+        S220 90, 240 70
+        S280 50, 300 65
+        L300 120
+        L20 120
+        Z
+      `,
+      points: [
+        { x: 40, y: 80 },
+        { x: 110, y: 70 },
+        { x: 170, y: 60 },
+        { x: 230, y: 75 },
+        { x: 290, y: 65 },
+      ],
+    },
   };
+
+  const current = data[tab];
 
   return (
     <View style={styles.card}>
-
       <View style={styles.row}>
         <View>
           <Text style={styles.title}>Your weight</Text>
           <Text style={styles.sub}>in kg</Text>
         </View>
-
-        {/* Toggle */}
         <View style={styles.toggle}>
           {["Monthly", "Weekly"].map((t) => (
             <TouchableOpacity
@@ -48,61 +85,37 @@ export default function BodyTrends() {
           ))}
         </View>
       </View>
-
-      {/* Graph */}
       <View style={styles.graph}>
+        <View style={[styles.line, { top: 15 }]} />
+        <View style={[styles.line, { top: 60 }]} />
+        <View style={[styles.line, { top: 100 }]} />
+        <Text style={[styles.y, { top: 10 }]}>75</Text>
+        <Text style={[styles.y, { top: 55 }]}>50</Text>
+        <Text style={[styles.y, { top: 95 }]}>25</Text>
 
-        {/* grid */}
-        <View style={[styles.line, { top: 10 }]} />
-        <View style={[styles.line, { top: 50 }]} />
-        <View style={[styles.line, { top: 90 }]} />
-
-        {/* y labels */}
-        <Text style={[styles.y, { top: 5 }]}>75</Text>
-        <Text style={[styles.y, { top: 45 }]}>50</Text>
-        <Text style={[styles.y, { top: 85 }]}>25</Text>
-
-        <Svg width={300} height={120}>
-
-          {/* Area */}
+        <Svg width={320} height={140}>
+          <Path d={current.area} fill="#ebbfbf" opacity="0.35" />
           <Path
-            d={`${getPath()} L 300 120 L 20 120 Z`}
-            fill="#e8a5a5"
-            opacity="0.35"
-          />
-
-          {/* Line */}
-          <Path
-            d={getPath()}
-            stroke="#e58b8b"
-            strokeWidth="2"
+            d={current.path}
+            stroke="#ff5a5a"
+            strokeWidth="2.5"
             fill="none"
           />
-
-          {/* Dots (now PERFECTLY on curve) */}
-          {points.map((p, i) => (
-            <Circle
-              key={i}
-              cx={p.x}
-              cy={p.y}
-              r={i === 3 ? 6 : 5} // bigger for peak
-              fill="#fff"
-              stroke="#e58b8b"
-              strokeWidth="2"
-            />
+          {current.points.map((p, i) => (
+            <React.Fragment key={i}>
+              <Circle cx={p.x} cy={p.y} r="7" fill="#F6C7C7" />
+              <Circle cx={p.x} cy={p.y} r="5" fill="#fff" />
+              <Circle cx={p.x} cy={p.y} r="2.5" fill="#ff5d5d" />
+            </React.Fragment>
           ))}
-
         </Svg>
-
-        {/* months */}
         <View style={styles.monthRow}>
-          <Text style={styles.month}>Jan</Text>
-          <Text style={styles.month}>Feb</Text>
-          <Text style={styles.month}>Mar</Text>
-          <Text style={styles.month}>Apr</Text>
-          <Text style={styles.month}>May</Text>
+          {current.labels.map((label, i) => (
+            <Text key={i} style={styles.month}>
+              {label}
+            </Text>
+          ))}
         </View>
-
       </View>
     </View>
   );
@@ -113,18 +126,11 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 18,
     marginTop: 20,
-
     shadowColor: "#000",
     shadowOpacity: 0.05,
     shadowRadius: 10,
     shadowOffset: { width: 0, height: 4 },
     elevation: 4,
-  },
-
-  heading: {
-    fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 12,
   },
 
   row: {
@@ -171,7 +177,7 @@ const styles = StyleSheet.create({
 
   graph: {
     marginTop: 10,
-    height: 120,
+    height: 135,
     position: "relative",
   },
 
@@ -194,7 +200,7 @@ const styles = StyleSheet.create({
   monthRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: -5,
+    marginTop: -15,
     paddingHorizontal: 30,
   },
 
